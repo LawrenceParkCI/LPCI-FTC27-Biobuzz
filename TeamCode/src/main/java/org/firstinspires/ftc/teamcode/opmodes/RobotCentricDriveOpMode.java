@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -19,8 +19,6 @@ public class RobotCentricDriveOpMode extends OpMode {
         double lateral = gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
 
-        double max;
-
         //each motors power relative to direction
         double frontLeftPower  = axial + lateral + yaw;
         double frontRightPower = axial - lateral - yaw;
@@ -28,7 +26,7 @@ public class RobotCentricDriveOpMode extends OpMode {
         double backRightPower  = axial + lateral - yaw;
 
         //normalize value
-        max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
+        double max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
         max = Math.max(max, Math.abs(backLeftPower));
         max = Math.max(max, Math.abs(backRightPower));
 

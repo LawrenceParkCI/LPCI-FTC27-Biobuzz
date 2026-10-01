@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Motors {
-    private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor;
+    private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
+    private DcMotor shooter_motor_fixed, shooter_motor_slide;
+
     public void init(HardwareMap hwMap) {
         front_right_motor = hwMap.get(DcMotor.class, "front_right_motor");
         front_left_motor = hwMap.get(DcMotor.class, "front_left_motor");
