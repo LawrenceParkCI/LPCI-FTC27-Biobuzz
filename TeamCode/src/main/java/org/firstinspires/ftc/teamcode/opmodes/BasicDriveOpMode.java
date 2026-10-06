@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Motors;
 
-public class RobotCentricDriveOpMode extends OpMode {
+public class BasicDriveOpMode extends OpMode {
     Motors motors = new Motors();
 
     @Override
