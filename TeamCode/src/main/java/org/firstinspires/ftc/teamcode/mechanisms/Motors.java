@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Motors {
     private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
-    private DcMotor shooter_motor_fixed, shooter_motor_slide;
+    private DcMotor top_motor, bottom_motor;
 
     public void init(HardwareMap hwMap) {
+        //---------------CHASSIS---------------//
         front_right_motor = hwMap.get(DcMotor.class, "front_right_motor");
         front_left_motor = hwMap.get(DcMotor.class, "front_left_motor");
         back_right_motor = hwMap.get(DcMotor.class, "back_right_motor");
@@ -18,9 +19,13 @@ public class Motors {
         front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         back_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
         back_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        //--------------SHOOTER---------------//
+        top_motor = hwMap.get(DcMotor.class, "top_motor");
+        bottom_motor = hwMap.get(DcMotor.class, "bottom_motor");
     }
 
-    //methods to set power for each motor
+    //----------SET CHASSIS POWER------------//
     public void setFrontRightMotor (double power) {
         front_right_motor.setPower(power);
     }
@@ -33,4 +38,8 @@ public class Motors {
     public void setBackLeftMotor (double power) {
         back_left_motor.setPower(power);
     }
+
+    //----------SET SHOOTER POWER----------//
+    public void setTopMotor (double power) { top_motor.setPower(power);}
+    public void setBottomMotor (double power) { bottom_motor.setPower(power);}
 }
