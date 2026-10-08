@@ -21,21 +21,11 @@ public class AprilTagTest extends OpMode {
     }
 
     public void loop() {
-        AprilTagDetection detection = aprilTags.getTagBySpecificId(1);
-        aprilTags.getDetectedTags();
-        aprilTags.displayDetectionTelemetry(detection);
+        if (aprilTags.getDetectedTags() != null) {
+            aprilTags.getDetectedTags();
+            telemetry.addData("# of tags detected:", aprilTags.getDetectedTags().size());
 
-
-        if (detection instanceof AprilTagSingleDetection) {
-            AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
-
-            // 2. Ensure pose data exists before accessing coordinates
-            if (singleDet.ftcPose != null) {
-                double distanceCm = singleDet.ftcPose.range;
-
-                telemetry.addData("Distance to Tag", "%.2f cm", distanceCm);
-            }
+            aprilTags.telemetryAprilTag();
         }
-
     }
 }

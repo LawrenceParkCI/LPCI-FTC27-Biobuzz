@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.mechanisms.Motors;
+import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 
 public class BasicDriveOpMode extends OpMode {
-    Motors motors = new Motors();
+    ChassisMotors motors = new ChassisMotors();
 
     @Override
     public void init() {
