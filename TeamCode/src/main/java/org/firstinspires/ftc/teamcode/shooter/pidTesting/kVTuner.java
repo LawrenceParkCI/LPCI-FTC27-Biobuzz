@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pid;
+package org.firstinspires.ftc.teamcode.shooter.pidTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,9 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 @TeleOp
-public class kSTuner extends OpMode {
+public class kVTuner extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kS = 0;
+    public static double kV = 0.000171;
+    public double kS = 0.055;
+    public double goalRPM = 1200;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 4;
 
@@ -25,17 +27,26 @@ public class kSTuner extends OpMode {
             incrementIdx--;
         }
 
+        if (gamepad1.a) {
+            goalRPM = 1500;
+        } else if (gamepad1.b) {
+            goalRPM = 1200;
+        } else if (gamepad1.x) {
+            goalRPM = 500;
+        }
+
         double currentIdx = increments[incrementIdx];
 
-        if (gamepad1.dpadUpWasPressed()) {kS += currentIdx;}
-        if (gamepad1.dpadDownWasPressed()) {kS -= currentIdx;}
+        if (gamepad1.dpadUpWasPressed()) {kV += currentIdx;}
+        if (gamepad1.dpadDownWasPressed()) {kV -= currentIdx;}
 
-        flywheel.setBothMotors(kS);
+        double power = (kV * goalRPM) + kS;
+        flywheel.setTopMotorPower(power);
 
         telemetry.addData("Step", "%.6f", currentIdx);
-        telemetry.addData("kS", "%.6f", kS);
-        telemetry.addData("RPM", flywheel.getRPM());
-        telemetry.addData("Ticks per Sec", flywheel.getTicksPerSec());
+        telemetry.addData("kV", "%.6f", kV);
+        telemetry.addData("RPM", flywheel.getTopRPM());
+        telemetry.addData("Ticks per Sec", flywheel.getTopTicksPerSec());
 
     }
 }
