@@ -45,12 +45,11 @@ public class kPTuner extends OpMode {
         double error = goalRPM - flywheel.getTopRPM();
         double feedBack = error * kP;
 
-        flywheel.setTopMotorPower(feedForward + feedBack);
+        flywheel.setBotMotorPower(feedForward + feedBack);
 
         telemetry.addData("Step", "%.6f", currentIdx);
         telemetry.addData("kP", "%.6f", kP);
         telemetry.addData("RPM", flywheel.getTopRPM());
         telemetry.addData("Ticks per Sec", flywheel.getTopTicksPerSec());
-
     }
 }
