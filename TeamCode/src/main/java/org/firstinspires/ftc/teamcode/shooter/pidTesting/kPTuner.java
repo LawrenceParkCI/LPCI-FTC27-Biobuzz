@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 @TeleOp
 public class kPTuner extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kV = 0.000171;
+    public static double kV = 0.000151;
     public double kS = 0.068;
-    public double kP = 0.00;
+    public double kP = 0.00002;
     public double goalRPM = 1200;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 4;
@@ -48,6 +48,7 @@ public class kPTuner extends OpMode {
         flywheel.setTopMotorPower(feedForward + feedBack);
 
         telemetry.addData("Step", "%.6f", currentIdx);
+        telemetry.addData("kP", "%.6f", kP);
         telemetry.addData("kS", "%.6f", kS);
         telemetry.addData("kV", "%.6f", kV);
         telemetry.addData("RPM", flywheel.getTopRPM());

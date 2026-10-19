@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 public class KPTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kV1 = 0.000116;
-    public double kS1 = 0.154;
-    public double kP1 = 0.0;
+    public static double kV1 = 0.0001;
+    public double kS1 = 0.142;
+    public double kP1 = 0.0001;
     public double goalRPM = 1200;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 2;
