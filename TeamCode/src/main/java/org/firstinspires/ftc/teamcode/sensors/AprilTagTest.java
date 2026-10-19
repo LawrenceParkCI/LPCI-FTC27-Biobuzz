@@ -1,17 +1,18 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.sensors;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection; // New for SDK 12.0
-
+import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection; // New import for SDK 12.0+
 import java.util.List;
 
-@Autonomous (name = "AprilTagTest", group = "Vision")
+@Autonomous(name = "AprilTagTest", group = "Autonomous")
 public class AprilTagTest extends LinearOpMode {
 
     private AprilTagProcessor aprilTagProcessor;
@@ -19,65 +20,68 @@ public class AprilTagTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // 1. Initialize the AprilTag Processor
+        // 1. Initialize the AprilTag Processor using the Builder pattern
         aprilTagProcessor = new AprilTagProcessor.Builder()
-                // You can add custom configuration here if needed
+                // Configure the SDK to output all translations in CM instead of default Inches
+                .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
+                .setDrawAxes(true)
+                .setDrawTagOutline(true)
+                .setDrawTagID(true)
                 .build();
 
-        // 2. Initialize the Vision Portal with your webcam
+        // 2. Initialize the VisionPortal and link the webcam
         visionPortal = new VisionPortal.Builder()
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1")) // Ensure matches your robot config
+                .setCamera(hardwareMap.get(WebcamName.class, "Camera")) // Match your robot configuration name
                 .addProcessor(aprilTagProcessor)
                 .build();
 
-        telemetry.addData("Status", "Initialized. Camera starting up...");
+        telemetry.addData("Status", "Initialized. Camera Streaming...");
         telemetry.update();
 
         waitForStart();
 
         while (opModeIsActive()) {
-            // 3. Get the list of all active AprilTag detections
+            telemetry.addLine("Processing AprilTags...\n");
+
+            // 3. Retrieve the multi-type detection list
             List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
 
-            telemetry.addData("# Tags Detected", currentDetections.size());
+            if (currentDetections.isEmpty()) {
+                telemetry.addLine("No AprilTags detected in view.");
+            } else {
+                for (AprilTagDetection detection : currentDetections) {
 
-            // 4. Loop through the detections
-            for (AprilTagDetection detection : currentDetections) {
+                    // 4. CRITICAL SDK 12.0+ PATTERN: Check if it is a Single Tag Detection
+                    if (detection instanceof AprilTagSingleDetection) {
+                        // Cast the base detection to access specific single-tag properties safely
+                        AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
 
-                // SKD 12.0 Check: Ensure it is a standard Single Tag (not a cluster)
-                if (detection instanceof AprilTagSingleDetection) {
+                        // Check metadata explicitly to prevent NullPointerExceptions on unlisted/custom tags
+                        if (singleDet.metadata != null && singleDet.ftcPose != null) {
+                            telemetry.addLine(String.format("==== Single Tag ID %d ====", singleDet.id));
 
-                    // Cast the generic detection into the SDK 12.0 single detection object
-                    AprilTagSingleDetection singleTag = (AprilTagSingleDetection) detection;
+                            // Distance values are automatically scaled to centimeters via the builder configurations
+                            telemetry.addData("Straight-line Distance (Range)", "%.2f cm", singleDet.ftcPose.range);
+                            telemetry.addData("Forward Distance (Y)", "%.2f cm", singleDet.ftcPose.y);
+                            telemetry.addData("Horizontal Offset (X)", "%.2f cm", singleDet.ftcPose.x);
+                            telemetry.addData("Vertical Offset (Z)", "%.2f cm", singleDet.ftcPose.z);
+                            telemetry.addData("Bearing (Angle to center)", "%.2f deg", singleDet.ftcPose.bearing);
+                        } else {
+                            telemetry.addLine(String.format("Detected Tag ID %d (No Metadata / Pose Data available)", singleDet.id));
+                        }
 
-                    // Ensure the tag is recognized in the active TagLibrary to get pose data
-                    if (singleTag.metadata != null && singleTag.ftcPose != null) {
-
-                        int tagId = singleTag.id;                        // Get Tag ID
-                        String tagName = singleTag.metadata.name;        // Get Tag name from metadata
-
-                        // Distance coordinates relative to the camera center:
-                        double distanceAway = singleTag.ftcPose.range;   // Straight-line distance (inches)
-                        double lateralOffset = singleTag.ftcPose.x;      // Distance left/right from center line
-                        double forwardDist = singleTag.ftcPose.y;        // Straight ahead distance perpendicular to camera
-
-                        // Output to Driver Station Telemetry
-                        telemetry.addLine(String.format("\n==== (ID %d) %s ====", tagId, tagName));
-                        telemetry.addData("Straight-line Distance (Range)", "%.2f inches", distanceAway);
-                        telemetry.addData("Forward Component (Y)", "%.2f inches", forwardDist);
-                        telemetry.addData("Side Component (X)", "%.2f inches", lateralOffset);
                     } else {
-                        // Tag detected, but size/metadata unknown for calculations
-                        telemetry.addLine(String.format("\nUnknown Tag ID %d (No Pose Data)", singleTag.id));
+                        // This handles AprilTagClusterDetection instances if your camera encounters a multi-tag macro asset
+                        telemetry.addLine("Detected a Cluster Tag backdrop; ignoring single-tag math.");
                     }
                 }
             }
 
             telemetry.update();
-            sleep(20); // Small pause to ease CPU usage
+            sleep(20); // Minor cooling loop for telemetry throughput
         }
 
-        // Clean up and close camera stream when OpMode stops
+        // 5. Clean up vision resources
         visionPortal.close();
     }
 }
