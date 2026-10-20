@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 @TeleOp
 public class kVTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kV1 = 0.0001;
-    public double kS1 = 0.142;
+    public static double kV1 = 0.000133;
+    public double kS1 = 0.097;
     public double goalRPM = 1200;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 4;

@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class FlywheelMotors {
     private DcMotorEx top_motor, bottom_motor; //Flywheel motors
-    private double kV = 0.000151, kS = 0.068, kP = 0.00002;
-    private double kV1 = 0.0001, kS1 = 0.154, kP1 = 0.000001;
+    private double kV = 0.000157, kS = 0.068, kP = 0.000022;
+    private double kV1 = 0.000133, kS1 = 0.097, kP1 = 0.000001;
     double encoderCPM = 28;
 
     public void init(HardwareMap hwMap) {

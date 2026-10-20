@@ -17,16 +17,13 @@ public class ShooterTest extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.a) {
-            flywheel.setTopMotorPower(500);
-            telemetry.addData("RPM:", flywheel.getTopRPM());
-
+            flywheel.setBothMotorsRPM(500);
         } else if (gamepad1.b) {
-            flywheel.setTopMotorPower(1000);
-            telemetry.addData("RPM:", flywheel.getTopRPM());
-
+            flywheel.setBothMotorsRPM(1200);
         } else if (gamepad1.x) {
-            flywheel.setTopMotorPower(1500);
-            telemetry.addData("RPM:", flywheel.getTopRPM());
+            flywheel.setBothMotorsRPM(1500);
         }
+        telemetry.addData(" Top RPM:", flywheel.getTopRPM());
+        telemetry.addData("Top RPM:", flywheel.getBotRPM());
     }
 }

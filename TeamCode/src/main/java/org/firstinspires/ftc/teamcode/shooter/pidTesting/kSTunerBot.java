@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 @TeleOp
 public class kSTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kS1 = 0.154;
+    public static double kS1 = 0.097;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 4;
 
