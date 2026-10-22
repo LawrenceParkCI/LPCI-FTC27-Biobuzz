@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.shooter;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 @TeleOp
+@Disabled
 public class ShooterTest extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
 
