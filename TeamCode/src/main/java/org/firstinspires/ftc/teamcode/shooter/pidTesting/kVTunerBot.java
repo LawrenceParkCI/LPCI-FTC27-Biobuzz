@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.shooter.pidTesting;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 @TeleOp
+@Disabled
 public class kVTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
     public static double kV1 = 0.000133;

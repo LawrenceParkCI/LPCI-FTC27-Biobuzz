@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 @TeleOp
-@Disabled
 
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors motors = new ChassisMotors();

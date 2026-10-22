@@ -42,7 +42,6 @@ public class Autonomous extends OpMode {
     public void init() {
         Scheduler.reset();
 
-        follower = Constants.create(hardwareMap);
         follower.setPose(startPos);
     }
 

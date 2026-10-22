@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
+@Disabled
 public class FlywheelMotors {
     private DcMotorEx top_motor, bottom_motor; //Flywheel motors
     private double kV = 0.000157, kS = 0.068, kP = 0.000022;
