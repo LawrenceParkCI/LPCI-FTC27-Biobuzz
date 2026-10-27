@@ -22,6 +22,9 @@ public class FlywheelMotors {
         top_motor = hwMap.get(DcMotorEx.class, "top_motor");
         bottom_motor = hwMap.get(DcMotorEx.class, "bottom_motor");
 
+        top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bottom_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         top_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         bottom_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 

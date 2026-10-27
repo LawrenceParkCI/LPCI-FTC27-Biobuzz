@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotors;
 
 @TeleOp
+@Disabled
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors motors = new ChassisMotors();
     IntakeMotors intake = new IntakeMotors();
@@ -15,6 +16,7 @@ public class BasicDriveOpMode extends OpMode {
     @Override
     public void init() {
         motors.init(hardwareMap);
+        intake.init(hardwareMap);
     }
 
     @Override
@@ -47,9 +49,5 @@ public class BasicDriveOpMode extends OpMode {
         motors.setFrontRightMotor(frontRightPower);
         motors.setBackRightMotor(backRightPower);
         motors.setBackLeftMotor(backLeftPower);
-
-        if (gamepad1.a) {
-            intake.setIntakeMotorPower(1);
-        }
     }
 }
