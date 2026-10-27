@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+@Disabled
 
 public class ChassisMotors {
     private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors

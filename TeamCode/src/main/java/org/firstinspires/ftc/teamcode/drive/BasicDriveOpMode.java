@@ -5,10 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
-@TeleOp
+import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotors;
 
+@TeleOp
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors motors = new ChassisMotors();
+    IntakeMotors intake = new IntakeMotors();
 
     @Override
     public void init() {
@@ -46,6 +48,8 @@ public class BasicDriveOpMode extends OpMode {
         motors.setBackRightMotor(backRightPower);
         motors.setBackLeftMotor(backLeftPower);
 
-
+        if (gamepad1.a) {
+            intake.setIntakeMotorPower(1);
+        }
     }
 }
