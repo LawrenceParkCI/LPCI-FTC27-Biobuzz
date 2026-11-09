@@ -52,4 +52,20 @@ public class AutonomousMethods {
 
         motors.stopAllMotors();
     }
+
+    public void moveForward(double speed) {
+        motors.setBackRightMotor(speed);
+        motors.setBackLeftMotor(speed);
+
+        motors.setFrontRightMotor(speed);
+        motors.setBackLeftMotor(speed);
+    }
+
+    public void moveBackward(double speed) {
+        motors.setBackLeftMotor(-speed);
+        motors.setBackRightMotor(-speed);
+
+        motors.setFrontLeftMotor(-speed);
+        motors.setFrontRightMotor(-speed);
+    }
 }
