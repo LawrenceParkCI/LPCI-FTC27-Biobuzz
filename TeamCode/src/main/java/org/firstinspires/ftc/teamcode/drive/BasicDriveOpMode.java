@@ -8,15 +8,14 @@ import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotors;
 
 @TeleOp
-@Disabled
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors motors = new ChassisMotors();
-    IntakeMotors intake = new IntakeMotors();
+    //IntakeMotors intake = new IntakeMotors();
 
     @Override
     public void init() {
         motors.init(hardwareMap);
-        intake.init(hardwareMap);
+        //intake.init(hardwareMap);
     }
 
     @Override

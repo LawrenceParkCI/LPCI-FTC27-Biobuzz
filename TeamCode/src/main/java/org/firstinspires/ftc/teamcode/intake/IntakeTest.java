@@ -29,7 +29,6 @@ public class IntakeTest extends OpMode {
         if (gamepad1.x) {
             intake.stopIntakeMotor();
         }
-
         telemetry.addData("RPM:", intake.getIntakeRPM());
     }
 }

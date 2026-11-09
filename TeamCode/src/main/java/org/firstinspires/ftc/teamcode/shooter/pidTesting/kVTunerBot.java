@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 @Disabled
 public class kVTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
-    public static double kV1 = 0.000133;
-    public double kS1 = 0.097;
+    public static double kV = 0.000157;
+    public double kS = 0.068;
     public double goalRPM = 1200;
     double []increments = {0.000001, 0.00001, 0.0001, 0.001, 0.01};
     int incrementIdx = 4;
@@ -39,16 +39,17 @@ public class kVTunerBot extends OpMode {
 
         double currentIdx = increments[incrementIdx];
 
-        if (gamepad1.dpadUpWasPressed()) {kV1 += currentIdx;}
-        if (gamepad1.dpadDownWasPressed()) {kV1 -= currentIdx;}
+        if (gamepad1.dpadUpWasPressed()) {kV += currentIdx;}
+        if (gamepad1.dpadDownWasPressed()) {kV -= currentIdx;}
 
-        double power = (kV1 * goalRPM) + kS1;
-        flywheel.setBotMotorPower(power);
+        double power = (kV * goalRPM) + kS;
+        flywheel.setTopMotorPower(power);
 
         telemetry.addData("Step", "%.6f", currentIdx);
-        telemetry.addData("kV", "%.6f", kV1);
-        telemetry.addData("RPM", flywheel.getBotRPM());
-        telemetry.addData("Ticks per Sec", flywheel.getBotTicksPerSec());
+        telemetry.addData("kS", "%.6f", kS);
+        telemetry.addData("kV", "%.6f", kV);
+        telemetry.addData("RPM", flywheel.getTopRPM());
+        telemetry.addData("Ticks per Sec", flywheel.getTopTicksPerSec());
 
     }
 }
