@@ -15,7 +15,7 @@ public class doubleShooter extends OpMode {
 
     @Override
     public void loop() {
-        double nectarGoalRPM = 3000;
+        double nectarGoalRPM = 2500;
         double pollenGoalRPM = 3000;
 
         if (gamepad1.a) {
