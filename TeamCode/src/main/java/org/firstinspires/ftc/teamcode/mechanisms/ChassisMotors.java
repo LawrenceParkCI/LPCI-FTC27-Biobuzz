@@ -35,6 +35,10 @@ public class ChassisMotors {
     public void setBackLeftMotor (double power) {
         back_left_motor.setPower(power);
     }
-
-
+    public void stopAllMotors() {
+        setBackLeftMotor(0);
+        setFrontLeftMotor(0);
+        setFrontRightMotor(0);
+        setBackRightMotor(0);
+    }
 }
