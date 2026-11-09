@@ -37,4 +37,35 @@ public class AutonomousMethods {
 
         motors.stopAllMotors();
     }
+
+    public void turnRight(double turnSpeed, double turnAngle) {
+        imu.resetYaw();
+        double currentDegrees = 0;
+        while (currentDegrees < turnAngle) {
+            currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+            motors.setBackLeftMotor(turnSpeed);
+            motors.setFrontLeftMotor(turnSpeed);
+
+            motors.setBackLeftMotor(-turnSpeed);
+            motors.setFrontLeftMotor(-turnSpeed);
+        }
+
+        motors.stopAllMotors();
+    }
+
+    public void moveForward(double speed) {
+        motors.setBackRightMotor(speed);
+        motors.setBackLeftMotor(speed);
+
+        motors.setFrontRightMotor(speed);
+        motors.setBackLeftMotor(speed);
+    }
+
+    public void moveBackward(double speed) {
+        motors.setBackLeftMotor(-speed);
+        motors.setBackRightMotor(-speed);
+
+        motors.setFrontLeftMotor(-speed);
+        motors.setFrontRightMotor(-speed);
+    }
 }

@@ -24,8 +24,9 @@ public class ApriltagStan extends LinearOpMode {
     @Override
     public void runOpMode() {
         aprilTagProcessor = new AprilTagProcessor.Builder()
-                .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
+                .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES) // Changed to CM
                 .build();
+
 
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
@@ -42,7 +43,7 @@ public class ApriltagStan extends LinearOpMode {
                     AprilTagClusterDetection clusterDetection = (AprilTagClusterDetection) detection;
 
                     // Isolates and displays only the absolute straight-line distance
-                    telemetry.addData("Distance", String.format("%.2f in", clusterDetection.ftcPose.range));
+                    telemetry.addData("Distance", String.format("%.2f cm", clusterDetection.ftcPose.range));
                 }
             }
 
