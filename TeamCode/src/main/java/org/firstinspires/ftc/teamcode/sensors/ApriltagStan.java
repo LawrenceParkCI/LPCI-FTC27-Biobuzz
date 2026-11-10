@@ -1,11 +1,7 @@
 package org.firstinspires.ftc.teamcode.sensors;
 
-
-
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -27,7 +23,6 @@ public class ApriltagStan extends LinearOpMode {
                 .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES) // Changed to CM
                 .build();
 
-
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .addProcessor(aprilTagProcessor)
@@ -42,8 +37,12 @@ public class ApriltagStan extends LinearOpMode {
                 if (detection instanceof AprilTagClusterDetection) {
                     AprilTagClusterDetection clusterDetection = (AprilTagClusterDetection) detection;
 
-                    // Isolates and displays only the absolute straight-line distance
-                    telemetry.addData("Distance", String.format("%.2f cm", clusterDetection.ftcPose.range));
+                    if (clusterDetection.ftcPose != null) {
+                        // Displays Cluster Name, Distance, and Heading/Bearing Angle
+                        telemetry.addData("Cluster Target", clusterDetection.metadata.name);
+                        telemetry.addData("Distance", String.format("%.2f cm", clusterDetection.ftcPose.range));
+                        telemetry.addData("Angle (Bearing)", String.format("%.2f deg", clusterDetection.ftcPose.bearing));
+                    }
                 }
             }
 
