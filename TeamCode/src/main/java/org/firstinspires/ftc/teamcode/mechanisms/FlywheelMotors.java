@@ -11,7 +11,7 @@ public class FlywheelMotors {
 
 
     private double kV1 = 0.000157, kS1 = 0.068, kP1 = 0.000022;
-    private double kV = 0.000133, kS = 0.097, kP = 0.000001;
+    private double kV = 0.000152, kS = 0.097, kP = 0.001;
     double encoderCPM = 28;
 
 
@@ -27,8 +27,8 @@ public class FlywheelMotors {
         top_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         bottom_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        top_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        bottom_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        top_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        bottom_motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
     //----------SET MOTOR POWER----------//
     public void setTopMotorPower (double power) { top_motor.setPower(power);}

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 public class doubleShooter extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
+
     @Override
     public void init() {
         flywheel.init(hardwareMap);
@@ -15,40 +16,24 @@ public class doubleShooter extends OpMode {
 
     @Override
     public void loop() {
-        double nectarGoalRPM = 2500;
-        double pollenGoalRPM = 3000;
+        double nectarGoalRPM = 4000;
+        double pollenGoalRPM = 4000;
 
         if (gamepad1.a) {
-            flywheel.setTopMotorRPM(pollenGoalRPM);
+            flywheel.setBotMotorRPM(pollenGoalRPM);
         }
         if (gamepad1.b) {
-            flywheel.setBotMotorRPM(nectarGoalRPM);
+
+            flywheel.setTopMotorRPM(nectarGoalRPM);
         }
         if (gamepad1.x) {
-            flywheel.stopTopMotor();
-        }
-        if (gamepad1.y) {
             flywheel.stopBotMotor();
         }
+        if (gamepad1.y) {
+            flywheel.stopTopMotor();
 
-        if (gamepad1.dpad_up) {
-            nectarGoalRPM += 500;
-            flywheel.setTopMotorRPM(nectarGoalRPM);
+            telemetry.addData("Top RPM:", flywheel.getTopRPM());
+            telemetry.addData("Bot RPM:", flywheel.getBotRPM());
         }
-        if (gamepad1.dpad_down) {
-            nectarGoalRPM -= 500;
-            flywheel.setTopMotorRPM(nectarGoalRPM);
-        }
-        if (gamepad1.dpad_right) {
-            pollenGoalRPM += 500;
-            flywheel.setTopMotorRPM(pollenGoalRPM);
-        }
-        if (gamepad1.dpad_left) {
-            pollenGoalRPM -= 500;
-            flywheel.setTopMotorRPM(pollenGoalRPM);
-        }
-
-        telemetry.addData("Top RPM:", flywheel.getTopRPM());
-        telemetry.addData("Bot RPM:", flywheel.getBotRPM());
     }
 }

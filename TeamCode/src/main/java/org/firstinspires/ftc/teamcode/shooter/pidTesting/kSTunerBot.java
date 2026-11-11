@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 @TeleOp
-@Disabled
 public class kSTunerBot extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
     public static double kS = 0.068;
