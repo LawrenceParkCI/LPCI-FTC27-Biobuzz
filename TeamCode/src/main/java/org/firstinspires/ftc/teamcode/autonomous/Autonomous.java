@@ -20,52 +20,40 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
-
-
 @Disabled
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Autonomous extends OpMode {
-//    private Follower follower;
-//    private final PoseFactory p = PoseFactory.degrees();
-//
-//    //starting position
-//    private final Pose startPos = p.of(0, 0, 0);
-//
-//    //parking position
-//    private final Pose park = p.of(0, 0, 0);
-//
-//    //scoring position
-//    private final Pose score = p.of(0,0,0);
-//    private Path park() {
-//        return line(startPos, park).linear(startPos, park);
-//    }
-//
-//    @Override
-//    public void init() {
-//        Scheduler.reset();
-//
-//        follower.setPose(startPos);
-//    }
-//
-//    @Override
-//    public void start() {
-//        schedule(follow(follower, park()));
-//    }
-//    @Override
-//    public void loop() {
-//        follower.update();
-//        Scheduler.execute();
-//    }
+    private Follower follower;
+    private final PoseFactory p = PoseFactory.degrees();
 
-      ChassisMotors motors = new ChassisMotors();
-      @Override
-      public void init() {
+    //starting position
+    private final Pose startPos = p.of(0, 0, 0);
 
-      }
+    //parking position
+    private final Pose park = p.of(0, 0, 0);
 
-      @Override
-      public void loop() {
+    //scoring position
+    private final Pose score = p.of(0,0,0);
+    private Path park() {
+        return line(startPos, park).linear(startPos, park);
+    }
 
-      }
+    @Override
+    public void init() {
+        Scheduler.reset();
+
+        follower.setPose(startPos);
+    }
+
+    @Override
+    public void start() {
+        schedule(follow(follower, park()));
+    }
+    @Override
+    public void loop() {
+        follower.update();
+        Scheduler.execute();
+    }
+
 }
