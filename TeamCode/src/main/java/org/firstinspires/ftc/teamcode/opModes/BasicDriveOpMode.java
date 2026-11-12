@@ -1,21 +1,17 @@
-package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.opModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
-import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotors;
 
 @TeleOp
 public class BasicDriveOpMode extends OpMode {
-    ChassisMotors motors = new ChassisMotors();
-    //IntakeMotors intake = new IntakeMotors();
+    ChassisMotors chassisMotors = new ChassisMotors();
 
     @Override
     public void init() {
-        motors.init(hardwareMap);
-        //intake.init(hardwareMap);
+        chassisMotors.init(hardwareMap);
     }
 
     @Override
@@ -44,9 +40,9 @@ public class BasicDriveOpMode extends OpMode {
         }
 
         //setting it up
-        motors.setFrontLeftMotor(frontLeftPower);
-        motors.setFrontRightMotor(frontRightPower);
-        motors.setBackRightMotor(backRightPower);
-        motors.setBackLeftMotor(backLeftPower);
+        chassisMotors.setFrontLeftMotor(frontLeftPower);
+        chassisMotors.setFrontRightMotor(frontRightPower);
+        chassisMotors.setBackRightMotor(backRightPower);
+        chassisMotors.setBackLeftMotor(backLeftPower);
     }
 }
