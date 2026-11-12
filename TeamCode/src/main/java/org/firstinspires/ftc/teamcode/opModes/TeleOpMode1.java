@@ -29,12 +29,15 @@ public class TeleOpMode1 extends OpMode {
     @Override
     public void loop() {
         // -------------- INTAKE --------------- //
+        //intake balls
         if (gamepad2.left_bumper) {
             intakeMotors.intakeDirForward();
             intakeMotors.setIntakeMotorPower(0.6);
+        //outtake balls
         } else if (gamepad2.right_bumper) {
             intakeMotors.intakeDirReverse();
             intakeMotors.setIntakeMotorPower(0.6);
+        //stop intake
         } else if (gamepad2.left_trigger > 0.1) {
             intakeMotors.stopIntakeMotor();
         }
@@ -43,12 +46,14 @@ public class TeleOpMode1 extends OpMode {
         double nectarGoalRPM = 4000;
         double pollenGoalRPM = 4000;
 
+        //pollen motor
         if (gamepad1.a) {
             flywheelMotors.setBotMotorRPM(pollenGoalRPM);
         } else if (gamepad1.x) {
             flywheelMotors.stopBotMotor();
         }
 
+        //nectar motor
         if (gamepad1.b) {
             flywheelMotors.setTopMotorRPM(nectarGoalRPM);
         } else if (gamepad1.y) {

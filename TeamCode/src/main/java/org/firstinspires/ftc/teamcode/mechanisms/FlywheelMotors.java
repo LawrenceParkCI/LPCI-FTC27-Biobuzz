@@ -1,38 +1,36 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
-import com.qualcomm.hardware.motors.RevRoboticsUltraPlanetaryHdHexMotor;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 public class FlywheelMotors {
-    private DcMotorEx top_motor, bottom_motor; //Flywheel motors
-
-
-    private double kV1 = 0.000157, kS1 = 0.068, kP1 = 0.000022;
+    private DcMotorEx nectar_motor, pollen_motor; //Flywheel motors
+    //pollen motor
     private double kV = 0.000152, kS = 0.097, kP = 0.001;
+    //nectar motor
+    private double kV1 = 0.000157, kS1 = 0.068, kP1 = 0.000022;
     double encoderCPM = 28;
 
 
 
     public void init(HardwareMap hwMap) {
         //--------------SHOOTER---------------//
-        top_motor = hwMap.get(DcMotorEx.class, "top_motor");
-        bottom_motor = hwMap.get(DcMotorEx.class, "bottom_motor");
+        nectar_motor = hwMap.get(DcMotorEx.class, "nectar_motor");
+        pollen_motor = hwMap.get(DcMotorEx.class, "pollen_motor");
 
-        top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bottom_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        nectar_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        pollen_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        top_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        bottom_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        nectar_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        pollen_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        top_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        bottom_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        nectar_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        pollen_motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
     //----------SET MOTOR POWER----------//
-    public void setTopMotorPower (double power) { top_motor.setPower(power);}
-    public void setBotMotorPower (double power) { bottom_motor.setPower(power);}
+    public void setTopMotorPower (double power) { nectar_motor.setPower(power);}
+    public void setBotMotorPower (double power) { pollen_motor.setPower(power);}
 
     //--------------SET MOTOR RPM-----------------//
     public void setBothMotorsRPM (double targetRPM) {
@@ -72,21 +70,21 @@ public class FlywheelMotors {
 
     //-------------------------STOP MOTOR--------------------//
     public void stopMotors () {
-        top_motor.setPower(0);
-        bottom_motor.setPower(0);
+        nectar_motor.setPower(0);
+        pollen_motor.setPower(0);
     }
     public void stopTopMotor() {
-        top_motor.setPower(0);
+        nectar_motor.setPower(0);
     }
     public void stopBotMotor() {
-        bottom_motor.setPower(0);
+        pollen_motor.setPower(0);
     }
     //----------GET MOTOR RPM----------//
     public double getTopTicksPerSec() {
-        return top_motor.getVelocity();
+        return nectar_motor.getVelocity();
     }
     public double getBotTicksPerSec() {
-        return bottom_motor.getVelocity();
+        return pollen_motor.getVelocity();
     }
     public double getTopRPM() {
         return ((getTopTicksPerSec()/encoderCPM) * 60);
