@@ -12,7 +12,7 @@ public class TeleOpMode1 extends OpMode {
 
     // Mechanisms
     ChassisMotors chassisMotors = new ChassisMotors();
-    IntakeMotors intakeMotors = new IntakeMotors();
+        IntakeMotors intakeMotors = new IntakeMotors();
     FlywheelMotors flywheelMotors = new FlywheelMotors();
     Servos servos = new Servos();
 
@@ -66,7 +66,7 @@ public class TeleOpMode1 extends OpMode {
             flywheelMotors.stopTopMotor();
         }
 
-// -------------- GATE --------------- //
+        // -------------- GATE --------------- //
         if (gamepad2.dpad_up) {
             servos.openGate();
         } else if (gamepad2.dpad_down) {
