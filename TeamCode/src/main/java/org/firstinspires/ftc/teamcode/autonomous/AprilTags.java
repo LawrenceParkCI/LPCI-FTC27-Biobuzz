@@ -1,106 +1,98 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import android.util.Size;
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagClusterDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 
 import java.util.ArrayList;
 import java.util.List;
-@Disabled
+
 public class AprilTags {
-    private AprilTagProcessor aprilTagProcessor;
+
+    private AprilTagProcessor aprilTag;
     private VisionPortal visionPortal;
-    private List<AprilTagDetection> detectedTags = new ArrayList<>();
-    private Telemetry telemetry;
 
-    public void init(HardwareMap hwMap, Telemetry telemetry) {
-        this.telemetry = telemetry;
+    // Default constructor: initializes with default webcam name "Webcam 1"
+    public AprilTags(HardwareMap hardwareMap) {
+        this(hardwareMap, "Webcam 1");
+    }
 
-        //April tag builder
-        aprilTagProcessor = new AprilTagProcessor.Builder()
-                .setDrawTagID(true)
-                .setDrawTagOutline(true)
-                .setDrawAxes(true)
-                .setDrawCubeProjection(true)
-                .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES) // Output is set to CM
+    // Overloaded constructor: allows custom webcam configuration name
+    public AprilTags(HardwareMap hardwareMap, String webcamName) {
+        // Logitech C270 is pre-calibrated in FTC SDK 12.0 at 640x480
+        aprilTag = new AprilTagProcessor.Builder()
+                .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
                 .build();
 
-        //Vision portal builder
-        VisionPortal.Builder builder = new VisionPortal.Builder();
-        builder.setCamera(hwMap.get(WebcamName.class, "camera"));
-        builder.setCameraResolution(new Size(640, 480));
-
-        //enable processor & vision portal
-        builder.addProcessor(aprilTagProcessor);
-        visionPortal = builder.build();
+        visionPortal = new VisionPortal.Builder()
+                .setCamera(hardwareMap.get(WebcamName.class, webcamName))
+                .setCameraResolution(new Size(640, 480))
+                .addProcessor(aprilTag)
+                .build();
     }
 
+    // Returns a list of all detected AprilTag clusters
+    public List<AprilTagClusterDetection> getClusterDetections() {
+        List<AprilTagClusterDetection> clusters = new ArrayList<>();
+        if (aprilTag == null) {
+            return clusters;
+        }
 
-    public void update() {
-        detectedTags = aprilTagProcessor.getDetections();
-    }
-
-    //Returns the detected tags
-    public List<AprilTagDetection> getDetectedTags() {
-        return detectedTags;
-    }
-
-    public void telemetryAprilTag() {
-
-        aprilTagProcessor.getDetections();
-        telemetry.addData("# AprilTags Detected", detectedTags.size());
-
-        // Step through the list of detections and display info for each one.
-        for (AprilTagDetection detection : detectedTags) {
-            if (detection instanceof AprilTagSingleDetection) {
-                AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
-
-                if (singleDet.metadata != null) {
-                    telemetry.addLine(String.format("\n==== (ID %d) %s", singleDet.id, singleDet.metadata.name));
-                    telemetry.addLine(String.format("Robot XYZ %6.1f %6.1f %6.1f  (inch)",
-                            detection.robotPose.getPosition().x,
-                            detection.robotPose.getPosition().y,
-                            detection.robotPose.getPosition().z));
-                    telemetry.addLine(String.format("Robot PRY %6.1f %6.1f %6.1f  (deg)",
-                            detection.robotPose.getOrientation().getPitch(AngleUnit.DEGREES),
-                            detection.robotPose.getOrientation().getRoll(AngleUnit.DEGREES),
-                            detection.robotPose.getOrientation().getYaw(AngleUnit.DEGREES)));
-                } else {
-                    telemetry.addLine(String.format("\n==== (ID %d) Unknown", singleDet.id));
-                    telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", singleDet.center.x, singleDet.center.y));
-                }
+        for (AprilTagDetection detection : aprilTag.getDetections()) {
+            if (detection instanceof AprilTagClusterDetection) {
+                clusters.add((AprilTagClusterDetection) detection);
             }
-        }   // end for() loop
+        }
+        return clusters;
+    }
 
-        // Add "key" information to telemetry
-        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+    // Returns the first visible cluster, or null if none are detected
+    public AprilTagClusterDetection getFirstCluster() {
+        List<AprilTagClusterDetection> clusters = getClusterDetections();
+        return clusters.isEmpty() ? null : clusters.get(0);
+    }
 
-    }   // end method telemetryAprilTag()
+    // Returns a specific cluster matching the given metadata name, or null if not found
+    public AprilTagClusterDetection getClusterByName(String targetName) {
+        if (targetName == null) {
+            return null;
+        }
 
-    public AprilTagDetection getTagBySpecificId(int id) {
-        for (AprilTagDetection detection : detectedTags) {
-            if (detection instanceof AprilTagSingleDetection) {
-                AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
-                if (singleDet.id == id) {
-                    return singleDet;
-                }
+        for (AprilTagClusterDetection cluster : getClusterDetections()) {
+            if (cluster.metadata != null && targetName.equals(cluster.metadata.name)) {
+                return cluster;
             }
         }
         return null;
     }
 
-    public void stop() {
+    // Checks if any cluster is currently visible
+    public boolean hasClusterDetection() {
+        return !getClusterDetections().isEmpty();
+    }
+
+    // Pauses camera streaming to reduce CPU load when vision is not needed
+    public void stopStreaming() {
+        if (visionPortal != null) {
+            visionPortal.stopStreaming();
+        }
+    }
+
+    // Resumes camera streaming
+    public void resumeStreaming() {
+        if (visionPortal != null) {
+            visionPortal.resumeStreaming();
+        }
+    }
+
+    // Closes the VisionPortal when the OpMode stops
+    public void close() {
         if (visionPortal != null) {
             visionPortal.close();
         }
