@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
 
 @TeleOp
+@Disabled
 public class ShooterTest extends OpMode {
     FlywheelMotors flywheel = new FlywheelMotors();
 

@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.opModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 
 @TeleOp
+@Disabled
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors chassisMotors = new ChassisMotors();
 
