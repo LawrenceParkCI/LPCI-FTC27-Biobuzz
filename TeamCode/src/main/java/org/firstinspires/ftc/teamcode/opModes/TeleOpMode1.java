@@ -37,10 +37,12 @@ public class TeleOpMode1 extends OpMode {
         if (gamepad2.left_bumper) {
             intakeMotors.intakeDirForward();
             intakeMotors.setIntakeMotorPower(0.6);
+
         //outtake balls
         } else if (gamepad2.right_bumper) {
             intakeMotors.intakeDirReverse();
             intakeMotors.setIntakeMotorPower(0.6);
+
         //stop intake
         } else if (gamepad2.left_trigger > 0.1) {
             intakeMotors.stopIntakeMotor();
@@ -51,14 +53,14 @@ public class TeleOpMode1 extends OpMode {
         double pollenGoalRPM = 4000;
 
         //pollen motor
-        if (gamepad1.a) {
+        if (gamepad1.a && !gamepad1.start) {
             flywheelMotors.setBotMotorRPM(pollenGoalRPM);
         } else if (gamepad1.x) {
             flywheelMotors.stopBotMotor();
         }
 
         //nectar motor
-        if (gamepad1.b) {
+        if (gamepad1.b && !gamepad1.start) {
             flywheelMotors.setTopMotorRPM(nectarGoalRPM);
         } else if (gamepad1.y) {
             flywheelMotors.stopTopMotor();
@@ -76,7 +78,7 @@ public class TeleOpMode1 extends OpMode {
         double lateral = gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
 
-        // Swap the front (forward/back and strafe flip, turning stays the same)
+        //swap the front (forward/back and strafe flip, turning stays the same)
         if (reversedDrive) {
             axial = -axial;
             lateral = -lateral;
@@ -87,6 +89,7 @@ public class TeleOpMode1 extends OpMode {
         double backLeftPower = axial - lateral + yaw;
         double backRightPower = axial + lateral - yaw;
 
+        //normalizing values
         double max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
         max = Math.max(max, Math.abs(backLeftPower));
         max = Math.max(max, Math.abs(backRightPower));
@@ -97,7 +100,7 @@ public class TeleOpMode1 extends OpMode {
             backLeftPower /= max;
             backRightPower /= max;
         }
-
+        //setting speeds
         chassisMotors.setFrontLeftMotor(frontLeftPower);
         chassisMotors.setFrontRightMotor(frontRightPower);
         chassisMotors.setBackRightMotor(backRightPower);
