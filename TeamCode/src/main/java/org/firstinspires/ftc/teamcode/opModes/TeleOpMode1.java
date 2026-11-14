@@ -16,6 +16,10 @@ public class TeleOpMode1 extends OpMode {
     FlywheelMotors flywheelMotors = new FlywheelMotors();
     Servos servos = new Servos();
 
+    // Drive mode: false = normal front, true = reversed front
+    private boolean reversedDrive = false;
+    private boolean lastToggleButton = false;
+
     @Override
     public void init() {
         chassisMotors.init(hardwareMap);
@@ -61,9 +65,22 @@ public class TeleOpMode1 extends OpMode {
         }
 
         // ------------- DRIVE ----------- //
+        // Toggle drive mode on each press of left bumper (flips once per press)
+        boolean toggleButton = gamepad1.left_bumper;
+        if (toggleButton && !lastToggleButton) {
+            reversedDrive = !reversedDrive;
+        }
+        lastToggleButton = toggleButton;
+
         double axial = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
+
+        // Swap the front (forward/back and strafe flip, turning stays the same)
+        if (reversedDrive) {
+            axial = -axial;
+            lateral = -lateral;
+        }
 
         double frontLeftPower = axial + lateral + yaw;
         double frontRightPower = axial - lateral - yaw;
@@ -87,5 +104,6 @@ public class TeleOpMode1 extends OpMode {
         chassisMotors.setBackLeftMotor(backLeftPower);
 
         telemetry.addData("Status", "Running");
+        telemetry.addData("Drive Mode", reversedDrive ? "REVERSED" : "NORMAL");
     }
 }

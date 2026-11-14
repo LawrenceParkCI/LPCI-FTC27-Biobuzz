@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.autonomous;
-import org.firstinspires.ftc.teamcode.drive.pedro.Constants;
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
