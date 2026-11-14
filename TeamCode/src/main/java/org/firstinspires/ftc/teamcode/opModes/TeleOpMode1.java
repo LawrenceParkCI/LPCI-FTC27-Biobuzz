@@ -66,6 +66,12 @@ public class TeleOpMode1 extends OpMode {
             flywheelMotors.stopTopMotor();
         }
 
+// -------------- GATE --------------- //
+        if (gamepad2.dpad_up) {
+            servos.openGate();
+        } else if (gamepad2.dpad_down) {
+            servos.closeGate();
+        }
         // ------------- DRIVE ----------- //
         // Toggle drive mode on each press of left bumper (flips once per press)
         boolean toggleButton = gamepad1.left_bumper;
