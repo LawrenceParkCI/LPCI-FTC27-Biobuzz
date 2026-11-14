@@ -12,7 +12,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 import java.util.List;
 
-@Autonomous(name = "AprilTagTest", group = "Autonomous")
+@Autonomous(name = "AprilTagSingleDetTest", group = "Autonomous")
 public class AprilTagSingleDetTest extends LinearOpMode {
 
     private VisionPortal visionPortal;

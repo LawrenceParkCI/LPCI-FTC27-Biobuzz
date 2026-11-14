@@ -11,7 +11,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 
-@Autonomous(name = "ApriltagStan", group = "Autonomous")
+@Autonomous(name = "ApriltagClusterDetStan", group = "Autonomous")
 public class ApriltagClusterDetStan extends LinearOpMode {
 
     private VisionPortal visionPortal;
