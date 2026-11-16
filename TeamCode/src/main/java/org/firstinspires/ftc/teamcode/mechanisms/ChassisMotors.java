@@ -65,11 +65,11 @@ public class ChassisMotors {
         double currentDegrees = 0;
         while (currentDegrees <= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(-turnSpeed);
-            setFrontLeftMotor(-turnSpeed);
+            setBackLeftMotor(turnSpeed);
+            setFrontLeftMotor(turnSpeed);
 
-            setBackRightMotor(turnSpeed);
-            setFrontRightMotor(turnSpeed);
+            setBackRightMotor(-turnSpeed);
+            setFrontRightMotor(-turnSpeed);
         }
 
         stopAllMotors();
@@ -81,11 +81,11 @@ public class ChassisMotors {
         double currentDegrees = 0;
         while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(turnSpeed);
-            setFrontLeftMotor(turnSpeed);
+            setBackLeftMotor(-turnSpeed);
+            setFrontLeftMotor(-turnSpeed);
 
-            setBackRightMotor(-turnSpeed);
-            setFrontRightMotor(-turnSpeed);
+            setBackRightMotor(turnSpeed);
+            setFrontRightMotor(turnSpeed);
         }
 
         stopAllMotors();
