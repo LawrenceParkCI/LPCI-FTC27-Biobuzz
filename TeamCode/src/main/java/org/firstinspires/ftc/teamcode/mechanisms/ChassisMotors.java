@@ -68,8 +68,8 @@ public class ChassisMotors {
             setBackLeftMotor(-turnSpeed);
             setFrontLeftMotor(-turnSpeed);
 
-            setBackLeftMotor(turnSpeed);
-            setFrontLeftMotor(turnSpeed);
+            setBackRightMotor(turnSpeed);
+            setFrontRightMotor(turnSpeed);
         }
 
         stopAllMotors();
@@ -84,8 +84,8 @@ public class ChassisMotors {
             setBackLeftMotor(turnSpeed);
             setFrontLeftMotor(turnSpeed);
 
-            setBackLeftMotor(-turnSpeed);
-            setFrontLeftMotor(-turnSpeed);
+            setBackRightMotor(-turnSpeed);
+            setFrontRightMotor(-turnSpeed);
         }
 
         stopAllMotors();
