@@ -22,7 +22,7 @@ public class AutonomousShootPath extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()){
-            flyWheel.setBothMotorsRPM(50);
+            flyWheel.setBothMotorsRPM(2850);
             sleep(2000);
             flyWheel.stopMotors();
             motors.turnLeft(10, 90);
@@ -33,8 +33,24 @@ public class AutonomousShootPath extends LinearOpMode {
             sleep(1000);
             intake.setIntakeMotorPower(50);
             intake.intakeDirForward();
+            motors.moveBackward(10);
+            sleep(1000);
+            intake.setIntakeMotorPower(0);
             motors.moveForward(10);
             sleep(1000);
+            motors.turnLeft(10, 90);
+            sleep(1000);
+            flyWheel.setBothMotorsRPM(2850);
+            sleep(2000);
+            flyWheel.stopMotors();
+            motors.moveForward(10);
+            sleep(1000);
+            motors.turnRight(10, 90);
+            sleep(1000);
+            motors.moveForward(10);
+            sleep(2000);
+            motors.stopAllMotors();
+
         }
     }
 }

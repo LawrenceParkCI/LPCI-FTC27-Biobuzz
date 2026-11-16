@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class ChassisMotors {
     private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
+    IMU imu;
 
     public void init(HardwareMap hwMap) {
         //---------------CHASSIS---------------//
@@ -29,8 +30,8 @@ public class ChassisMotors {
         imu = hwMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot orient = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT
         );
         imu.initialize(new IMU.Parameters(orient));
     }
@@ -56,7 +57,7 @@ public class ChassisMotors {
     }
 
     //------- AUTONOMOUS METHODS -------
-    IMU imu;
+
 
     public void turnLeft(double turnSpeed, double turnAngle) {
         stopAllMotors();
