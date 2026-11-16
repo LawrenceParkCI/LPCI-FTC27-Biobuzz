@@ -87,7 +87,7 @@ public class TeleOpMode1 extends OpMode {
 
         double axial = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
-        double yaw = gamepad1.right_stick_x;
+        double yaw = -gamepad1.right_stick_x;
 
         //swap the front (forward/back and strafe flip, turning stays the same)
         if (reversedDrive) {
