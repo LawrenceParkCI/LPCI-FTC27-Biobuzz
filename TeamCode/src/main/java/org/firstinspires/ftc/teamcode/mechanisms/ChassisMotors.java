@@ -21,10 +21,10 @@ public class ChassisMotors {
         back_right_motor = hwMap.get(DcMotor.class, "back_right_motor");
         back_left_motor = hwMap.get(DcMotor.class, "back_left_motor");
 
-        front_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        front_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
         front_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
         back_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        back_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
@@ -63,7 +63,7 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees <= turnAngle) {
+        while (currentDegrees <= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             setBackLeftMotor(turnSpeed);
             setFrontLeftMotor(turnSpeed);
@@ -79,7 +79,7 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees <= -turnAngle) {
+        while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             setBackLeftMotor(-turnSpeed);
             setFrontLeftMotor(-turnSpeed);
