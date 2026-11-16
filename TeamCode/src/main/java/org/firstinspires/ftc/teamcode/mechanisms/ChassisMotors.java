@@ -31,7 +31,7 @@ public class ChassisMotors {
 
         RevHubOrientationOnRobot orient = new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
         );
         imu.initialize(new IMU.Parameters(orient));
     }
@@ -63,7 +63,7 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees < -turnAngle) {
+        while (currentDegrees <= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             setBackLeftMotor(-turnSpeed);
             setFrontLeftMotor(-turnSpeed);
@@ -79,7 +79,7 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees < turnAngle) {
+        while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             setBackLeftMotor(turnSpeed);
             setFrontLeftMotor(turnSpeed);
