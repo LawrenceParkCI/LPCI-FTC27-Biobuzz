@@ -21,10 +21,10 @@ public class ChassisMotors {
         back_right_motor = hwMap.get(DcMotor.class, "back_right_motor");
         back_left_motor = hwMap.get(DcMotor.class, "back_left_motor");
 
-        front_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        back_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        front_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        front_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        back_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        back_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
@@ -97,7 +97,7 @@ public class ChassisMotors {
         setBackLeftMotor(speed);
 
         setFrontRightMotor(speed);
-        setBackLeftMotor(speed);
+        setFrontLeftMotor(speed);
     }
 
     public void moveBackward(double speed) {
