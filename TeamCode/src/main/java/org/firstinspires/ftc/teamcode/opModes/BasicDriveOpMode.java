@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 
 @TeleOp
-@Disabled
 public class BasicDriveOpMode extends OpMode {
     ChassisMotors chassisMotors = new ChassisMotors();
 
@@ -21,11 +20,11 @@ public class BasicDriveOpMode extends OpMode {
         //gamepad inputs to direction
         double axial = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
-        double yaw = -gamepad1.right_stick_x;
+        double yaw = gamepad1.right_stick_x;
 
         //each motors power relative to direction
-        double frontLeftPower  = axial + lateral + yaw;
-        double frontRightPower = axial - lateral - yaw;
+        double frontLeftPower  = axial + lateral - yaw;
+        double frontRightPower = axial - lateral + yaw;
         double backLeftPower   = axial - lateral + yaw;
         double backRightPower  = axial + lateral - yaw;
 

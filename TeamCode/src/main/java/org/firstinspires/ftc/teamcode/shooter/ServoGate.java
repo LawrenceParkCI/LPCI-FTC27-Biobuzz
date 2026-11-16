@@ -8,10 +8,12 @@ import org.firstinspires.ftc.teamcode.mechanisms.Servos;
 @TeleOp
 public class ServoGate extends OpMode {
     Servos servos = new Servos();
-
+    double startPos;
     @Override
     public void init() {
         servos.init(hardwareMap);
+
+        startPos = servos.getServoPos();
     }
     @Override
     public void loop() {
@@ -20,5 +22,7 @@ public class ServoGate extends OpMode {
         } else if (gamepad2.dpad_down) {
             servos.closeGate();
         }
+
+        telemetry.addData("Servo Pos", servos.getServoPos());
     }
 }

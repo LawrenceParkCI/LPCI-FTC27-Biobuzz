@@ -22,8 +22,8 @@ public class ChassisMotors {
 
         front_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
         front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        back_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        back_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");

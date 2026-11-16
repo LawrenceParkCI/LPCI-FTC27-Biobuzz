@@ -12,7 +12,7 @@ public class TeleOpMode1 extends OpMode {
 
     // Mechanisms
     ChassisMotors chassisMotors = new ChassisMotors();
-        IntakeMotors intakeMotors = new IntakeMotors();
+    IntakeMotors intakeMotors = new IntakeMotors();
     FlywheelMotors flywheelMotors = new FlywheelMotors();
     Servos servos = new Servos();
 
@@ -38,7 +38,7 @@ public class TeleOpMode1 extends OpMode {
             intakeMotors.intakeDirForward();
             intakeMotors.setIntakeMotorPower(0.6);
 
-        //outtake balls
+        //reverse intake
         } else if (gamepad2.right_bumper) {
             intakeMotors.intakeDirReverse();
             intakeMotors.setIntakeMotorPower(0.6);
@@ -49,23 +49,28 @@ public class TeleOpMode1 extends OpMode {
         }
 
         // ------------- SHOOTERS ----------- //
-        double nectarGoalRPM = 4000;
-        double pollenGoalRPM = 4000;
+        double nectarGoalRPM = 2000;
+        double pollenGoalRPM = 2850;
+
+        double idleGoal = 800;
 
         //pollen motor
-        if (gamepad1.a && !gamepad1.start) {
+        if (gamepad2.a && !gamepad2.start) {
             flywheelMotors.setBotMotorRPM(pollenGoalRPM);
-        } else if (gamepad1.x) {
+        } else if (gamepad2.x) {
             flywheelMotors.stopBotMotor();
         }
 
         //nectar motor
-        if (gamepad1.b && !gamepad1.start) {
+        if (gamepad2.b && !gamepad2.start) {
             flywheelMotors.setTopMotorRPM(nectarGoalRPM);
-        } else if (gamepad1.y) {
+        } else if (gamepad2.y) {
             flywheelMotors.stopTopMotor();
         }
 
+        if (gamepad2.dpad_left) {
+            flywheelMotors.setBothMotorsRPM(idleGoal);
+        }
         // -------------- GATE --------------- //
         if (gamepad2.dpad_up) {
             servos.openGate();
@@ -73,7 +78,7 @@ public class TeleOpMode1 extends OpMode {
             servos.closeGate();
         }
         // ------------- DRIVE ----------- //
-        // Toggle drive mode on each press of left bumper (flips once per press)
+        //toggle drive mode on each press of left bumper (flips once per press)
         boolean toggleButton = gamepad1.left_bumper;
         if (toggleButton && !lastToggleButton) {
             reversedDrive = !reversedDrive;
@@ -82,7 +87,7 @@ public class TeleOpMode1 extends OpMode {
 
         double axial = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
-        double yaw = -gamepad1.right_stick_x;
+        double yaw = gamepad1.right_stick_x;
 
         //swap the front (forward/back and strafe flip, turning stays the same)
         if (reversedDrive) {
@@ -90,10 +95,10 @@ public class TeleOpMode1 extends OpMode {
             lateral = -lateral;
         }
 
-        double frontLeftPower = axial + lateral + yaw;
-        double frontRightPower = axial - lateral - yaw;
-        double backLeftPower = axial - lateral + yaw;
-        double backRightPower = axial + lateral - yaw;
+        double frontLeftPower  = axial + lateral - yaw;
+        double frontRightPower = axial - lateral + yaw;
+        double backLeftPower   = axial - lateral + yaw;
+        double backRightPower  = axial + lateral - yaw;
 
         //normalizing values
         double max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));

@@ -26,7 +26,7 @@ public class FlywheelMotors {
         pollen_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         nectar_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        pollen_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        pollen_motor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
     //----------SET MOTOR POWER----------//
     public void setTopMotorPower (double power) { nectar_motor.setPower(power);}
