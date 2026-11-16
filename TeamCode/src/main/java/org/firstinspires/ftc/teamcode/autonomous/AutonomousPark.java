@@ -22,11 +22,11 @@ public class AutonomousPark extends LinearOpMode {
             sleep(500);
             motors.stopAllMotors();
             sleep(1000);
-            motors.turnLeft(10, 90);
+            motors.turnLeft(20, 90);
             sleep(500);
             motors.stopAllMotors();
             sleep(1000);
-            motors.moveForward(10);
+            motors.moveForward(20);
             sleep(2000);
             motors.stopAllMotors();
         }
