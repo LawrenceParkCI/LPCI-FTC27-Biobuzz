@@ -13,8 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
-    double encoderCPM = 28;
-    private double ticksPerRev = 537.7;
+    double encoderCPM = 460.8;
+    private double ticksPerRev = 460.8;
 
     private DcMotorEx[] wheels; // 0 = FL, 1 = FR, 2 = BL, 3 = BR
     IMU imu;
@@ -150,7 +150,7 @@ public class ChassisMotors {
         return ((getBackRightTicksPerSec()/encoderCPM) * 60);
     }
     public double getWheelRPM(int wheel) {
-        return wheels[wheel].getVelocity() * 60.0 / ticksPerRev;
+        return ((getWheelTicksPerSec(wheel)/encoderCPM) * 60);
     }
     public double getWheelTicksPerSec(int wheel) {
         return wheels[wheel].getVelocity();

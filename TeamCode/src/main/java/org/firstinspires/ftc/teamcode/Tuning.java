@@ -21,11 +21,11 @@ public class Tuning extends OpMode {
     private static final String[] PARAM_NAMES = {"kS", "kV", "kP", "kI", "kD"};
     private static final int KS = 0, KV = 1, KP = 2, KI = 3, KD = 4;
 
-    // gains[param][wheel]. Starting guesses, tune from here.
+    // gains[param][wheel]
     private final double[][] gains = {
-            {0.05, 0.05, 0.05, 0.05},          // kS
-            {0.003, 0.003, 0.003, 0.003},      // kV
-            {0, 0, 0, 0},                      // kP
+            {0.011, 0.036, 0.011, 0.011},          // kS
+            {0.003042, 0.003, 0.003040, 0.003050},      // kV
+            {0.000001, 0.000001, 0.000001, 0.000001},                      // kP
             {0, 0, 0, 0},                      // kI
             {0, 0, 0, 0}                       // kD
     };
@@ -91,7 +91,7 @@ public class Tuning extends OpMode {
         }
 
         //----------run the selected wheel----------
-        double rpm = chassis.getWheelRPM(wheel);
+        double rpm = -1 * chassis.getWheelRPM(wheel);
         double power = 0;
 
         if (goalRPM > 0) {
