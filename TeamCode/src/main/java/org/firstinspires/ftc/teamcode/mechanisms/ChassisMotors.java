@@ -46,7 +46,7 @@ public class ChassisMotors {
         imu = hwMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot orient = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
         );
         imu.initialize(new IMU.Parameters(orient));
@@ -79,13 +79,13 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees <= -turnAngle) {
+        while (currentDegrees >= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(turnSpeed);
-            setFrontLeftMotor(turnSpeed);
+            setBackLeftMotor(-turnSpeed);
+            setFrontLeftMotor(-turnSpeed);
 
-            setBackRightMotor(-turnSpeed);
-            setFrontRightMotor(-turnSpeed);
+            setBackRightMotor(turnSpeed);
+            setFrontRightMotor(turnSpeed);
         }
 
         stopAllMotors();
@@ -97,11 +97,11 @@ public class ChassisMotors {
         double currentDegrees = 0;
         while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(-turnSpeed);
-            setFrontLeftMotor(-turnSpeed);
+            setBackLeftMotor(turnSpeed);
+            setFrontLeftMotor(turnSpeed);
 
-            setBackRightMotor(turnSpeed);
-            setFrontRightMotor(turnSpeed);
+            setBackRightMotor(-turnSpeed);
+            setFrontRightMotor(-turnSpeed);
         }
 
         stopAllMotors();
