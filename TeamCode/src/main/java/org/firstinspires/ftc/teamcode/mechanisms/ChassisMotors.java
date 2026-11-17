@@ -32,7 +32,7 @@ public class ChassisMotors {
         imu = hwMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot orient = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
         );
         imu.initialize(new IMU.Parameters(orient));
