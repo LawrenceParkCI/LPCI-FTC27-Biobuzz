@@ -19,7 +19,7 @@ public class AutonomousPark extends LinearOpMode {
 
         if (opModeIsActive()) {
             motors.moveBackward(10);
-            sleep(500);
+            sleep(1000);
             motors.turnLeft(20, 90);
             sleep(1000);
             motors.moveBackward(5);
