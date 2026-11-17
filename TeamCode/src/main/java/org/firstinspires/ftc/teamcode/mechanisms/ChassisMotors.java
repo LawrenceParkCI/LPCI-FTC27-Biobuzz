@@ -14,6 +14,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
     double encoderCPM = 28;
+    private double ticksPerRev = 537.7;
+
+    private DcMotorEx[] wheels; // 0 = FL, 1 = FR, 2 = BL, 3 = BR
     IMU imu;
 
     public void init(HardwareMap hwMap) {
@@ -27,6 +30,17 @@ public class ChassisMotors {
         front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         back_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //------------for my tuning method----------//
+        wheels = new DcMotorEx[]{front_left_motor, front_right_motor, back_left_motor, back_right_motor};
+        for (DcMotorEx m : wheels) {
+            m.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+        double reported = wheels[0].getMotorType().getTicksPerRev();
+        if (reported > 0) {
+            ticksPerRev = reported;
+        }
+
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
@@ -134,5 +148,14 @@ public class ChassisMotors {
     }
     public double getBackRightRPM() {
         return ((getBackRightTicksPerSec()/encoderCPM) * 60);
+    }
+    public double getWheelRPM(int wheel) {
+        return wheels[wheel].getVelocity() * 60.0 / ticksPerRev;
+    }
+    public double getWheelTicksPerSec(int wheel) {
+        return wheels[wheel].getVelocity();
+    }
+    public void setWheelPower(int wheel, double power) {
+        wheels[wheel].setPower(power);
     }
 }
