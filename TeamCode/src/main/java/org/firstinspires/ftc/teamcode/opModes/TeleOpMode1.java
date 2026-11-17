@@ -39,6 +39,7 @@ public class TeleOpMode1 extends OpMode {
             intakeMotors.setIntakeMotorPower(0.6);
         //reverse intake
         } else if (gamepad2.right_bumper) {
+            intakeMotors.stopIntakeMotor();
             intakeMotors.intakeDirReverse();
             intakeMotors.setIntakeMotorPower(0.6);
         //stop intake
