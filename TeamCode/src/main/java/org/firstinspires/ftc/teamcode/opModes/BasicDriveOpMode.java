@@ -20,7 +20,7 @@ public class BasicDriveOpMode extends OpMode {
         //gamepad inputs to direction
         double axial = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
-        double yaw = gamepad1.right_stick_x;
+        double yaw = -gamepad1.right_stick_x;
 
         //each motors power relative to direction
         double frontLeftPower  = axial + lateral - yaw;
