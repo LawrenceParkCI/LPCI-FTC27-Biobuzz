@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.mechanisms;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -12,21 +11,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 
 public class ChassisMotors {
-    private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
+    private DcMotor front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
     IMU imu;
-    double encoderCPM = 28;
 
     public void init(HardwareMap hwMap) {
         //---------------CHASSIS---------------//
-        front_right_motor = hwMap.get(DcMotorEx.class, "front_right_motor");
-        front_left_motor = hwMap.get(DcMotorEx.class, "front_left_motor");
-        back_right_motor = hwMap.get(DcMotorEx.class, "back_right_motor");
-        back_left_motor = hwMap.get(DcMotorEx.class, "back_left_motor");
+        front_right_motor = hwMap.get(DcMotor.class, "front_right_motor");
+        front_left_motor = hwMap.get(DcMotor.class, "front_left_motor");
+        back_right_motor = hwMap.get(DcMotor.class, "back_right_motor");
+        back_left_motor = hwMap.get(DcMotor.class, "back_left_motor");
 
         front_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        front_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
         back_right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        back_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
@@ -67,11 +65,11 @@ public class ChassisMotors {
         double currentDegrees = 0;
         while (currentDegrees <= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(-turnSpeed);
-            setFrontLeftMotor(-turnSpeed);
+            setBackLeftMotor(turnSpeed);
+            setFrontLeftMotor(turnSpeed);
 
-            setBackRightMotor(turnSpeed);
-            setFrontRightMotor(turnSpeed);
+            setBackRightMotor(-turnSpeed);
+            setFrontRightMotor(-turnSpeed);
         }
 
         stopAllMotors();
@@ -83,11 +81,11 @@ public class ChassisMotors {
         double currentDegrees = 0;
         while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(turnSpeed);
-            setFrontLeftMotor(turnSpeed);
+            setBackLeftMotor(-turnSpeed);
+            setFrontLeftMotor(-turnSpeed);
 
-            setBackRightMotor(-turnSpeed);
-            setFrontRightMotor(-turnSpeed);
+            setBackRightMotor(turnSpeed);
+            setFrontRightMotor(turnSpeed);
         }
 
         stopAllMotors();
@@ -109,30 +107,5 @@ public class ChassisMotors {
 
         setFrontLeftMotor(-speed);
         setFrontRightMotor(-speed);
-    }
-    public double getFrontLeftTicksPerSec() {
-        return front_left_motor.getVelocity();
-    }
-    public double getFrontRightTicksPerSec() {
-        return front_right_motor.getVelocity();
-    }
-    public double getBackLeftTicksPerSec() {
-        return back_left_motor.getVelocity();
-    }
-    public double getBackRightTicksPerSec() {
-        return back_right_motor.getVelocity();
-    }
-
-    public double getFrontLeftRPM() {
-        return ((getFrontLeftTicksPerSec()/encoderCPM) * 60);
-    }
-    public double getFrontRightRPM() {
-        return ((getFrontRightTicksPerSec()/encoderCPM) * 60);
-    }
-    public double getBackLefRPM() {
-        return ((getBackLeftTicksPerSec()/encoderCPM) * 60);
-    }
-    public double getBackRightRPM() {
-        return ((getBackRightTicksPerSec()/encoderCPM) * 60);
     }
 }

@@ -93,8 +93,8 @@ public class TeleOpMode1 extends OpMode {
         lastToggleButton = toggleButton;
 
         double axial = -gamepad1.left_stick_y;
-        double lateral = gamepad1.left_stick_x;
-        double yaw = -gamepad1.right_stick_x;
+        double lateral = -gamepad1.left_stick_x;
+        double yaw = gamepad1.right_stick_x;
 
         //swap the front (forward/back and strafe flip, turning stays the same)
         if (reversedDrive) {
@@ -102,10 +102,10 @@ public class TeleOpMode1 extends OpMode {
             lateral = -lateral;
         }
 
-        double frontLeftPower  = axial + lateral - yaw;
-        double frontRightPower = axial - lateral + yaw;
-        double backLeftPower   = axial - lateral + yaw;
-        double backRightPower  = axial + lateral - yaw;
+        double frontLeftPower  = axial + lateral + yaw;
+        double frontRightPower = axial - lateral - yaw;
+        double backLeftPower   = axial + lateral - yaw;
+        double backRightPower  = axial - lateral + yaw;
 
         //normalizing values
         double max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
@@ -126,5 +126,9 @@ public class TeleOpMode1 extends OpMode {
 
         telemetry.addData("Status", "Running");
         telemetry.addData("Drive Mode", reversedDrive ? "REVERSED" : "NORMAL");
+        telemetry.addData("LX", gamepad1.left_stick_x);
+        telemetry.addData("LY", gamepad1.left_stick_y);
+        telemetry.addData("RX", gamepad1.right_stick_x);
+        telemetry.addData("RY", gamepad1.right_stick_y);
     }
 }
