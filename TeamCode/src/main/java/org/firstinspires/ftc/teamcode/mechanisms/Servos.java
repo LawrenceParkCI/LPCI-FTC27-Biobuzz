@@ -8,8 +8,8 @@ public class Servos {
 
     private static final double SERVO_RANGE_DEGREES = 300.0;
     private static final double GATE_TRAVEL_DEGREES = 90.0;
-    public static final double GATE_CLOSED_POS = 0.0;
-    public static final double GATE_OPEN_POS = GATE_CLOSED_POS + (GATE_TRAVEL_DEGREES / SERVO_RANGE_DEGREES);
+    public static final double GATE_OPEN_POS = 0.0;
+    public static final double GATE_CLOSED_POS = GATE_OPEN_POS + (GATE_TRAVEL_DEGREES / SERVO_RANGE_DEGREES);
 
     public void init(HardwareMap hwMap) {
         gate_servo = hwMap.get(Servo.class, "gate_servo");
