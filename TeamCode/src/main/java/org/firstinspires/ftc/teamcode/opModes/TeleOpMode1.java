@@ -37,21 +37,20 @@ public class TeleOpMode1 extends OpMode {
         if (gamepad2.left_bumper) {
             intakeMotors.intakeDirForward();
             intakeMotors.setIntakeMotorPower(0.6);
-
         //reverse intake
         } else if (gamepad2.right_bumper) {
             intakeMotors.intakeDirReverse();
             intakeMotors.setIntakeMotorPower(0.6);
-
         //stop intake
         } else if (gamepad2.left_trigger > 0.1) {
             intakeMotors.stopIntakeMotor();
         }
 
-        // ------------- SHOOTERS ----------- //
-        double nectarGoalRPM = 2000;
-        double pollenGoalRPM = 2850;
 
+
+        // ------------- SHOOTERS ----------- //
+        double nectarGoalRPM = 1500;
+        double pollenGoalRPM = 2850;
         double idleGoal = 800;
 
         //pollen motor
@@ -60,23 +59,30 @@ public class TeleOpMode1 extends OpMode {
         } else if (gamepad2.x) {
             flywheelMotors.stopBotMotor();
         }
-
         //nectar motor
         if (gamepad2.b && !gamepad2.start) {
             flywheelMotors.setTopMotorRPM(nectarGoalRPM);
         } else if (gamepad2.y) {
             flywheelMotors.stopTopMotor();
         }
-
+        //idling
         if (gamepad2.dpad_left) {
             flywheelMotors.setBothMotorsRPM(idleGoal);
+        } else if (gamepad2.dpad_right) {
+            flywheelMotors.stopMotors();
         }
+
+
+
         // -------------- GATE --------------- //
         if (gamepad2.dpad_up) {
             servos.openGate();
         } else if (gamepad2.dpad_down) {
             servos.closeGate();
         }
+
+
+        
         // ------------- DRIVE ----------- //
         //toggle drive mode on each press of left bumper (flips once per press)
         boolean toggleButton = gamepad1.left_bumper;
