@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
     double encoderCPM = 460.8;
+    public static final double MAX_RPM = 300;
     private final PIDFController[] wheelPIDs = {
             new PIDFController(0), new PIDFController(0), new PIDFController(0), new PIDFController(0)
     };
@@ -158,5 +159,22 @@ public class ChassisMotors {
     }
     public void setWheelPower(int wheel, double power) {
         wheels[wheel].setPower(power);
+    }
+    public void setWheelRPM(int wheel, double targetRPM) {
+        if (Math.abs(targetRPM) < 1.0) {
+            wheels[wheel].setPower(0);
+            wheelPIDs[wheel].reset();
+            return;
+        }
+        wheelPIDs[wheel].setCoefficients(kP[wheel], kI[wheel], kD[wheel], kV[wheel]);
+        double power = wheelPIDs[wheel].calculate(targetRPM, getWheelRPM(wheel))
+                + kS[wheel] * Math.signum(targetRPM);
+        wheels[wheel].setPower(Math.max(-1.0, Math.min(1.0, power)));
+    }
+    public void driveVelocity(double fl, double fr, double bl, double br) {
+        setWheelRPM(0, fl * MAX_RPM);
+        setWheelRPM(1, fr * MAX_RPM);
+        setWheelRPM(2, bl * MAX_RPM);
+        setWheelRPM(3, br * MAX_RPM);
     }
 }
