@@ -14,7 +14,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
     double encoderCPM = 460.8;
-    private double ticksPerRev = 460.8;
     private final PIDFController[] wheelPIDs = {
             new PIDFController(0), new PIDFController(0), new PIDFController(0), new PIDFController(0)
     };
@@ -44,11 +43,6 @@ public class ChassisMotors {
         for (DcMotorEx m : wheels) {
             m.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
-        double reported = wheels[0].getMotorType().getTicksPerRev();
-        if (reported > 0) {
-            ticksPerRev = reported;
-        }
-
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
