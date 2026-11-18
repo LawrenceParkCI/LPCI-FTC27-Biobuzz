@@ -15,6 +15,14 @@ public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
     double encoderCPM = 460.8;
     private double ticksPerRev = 460.8;
+    private final PIDFController[] wheelPIDs = {
+            new PIDFController(0), new PIDFController(0), new PIDFController(0), new PIDFController(0)
+    };
+    private final double[] kS =  {0.011, 0.036, 0.011, 0.011};
+    private final double[] kV = {0.003042, 0.003, 0.003040, 0.003050};
+    private final double[] kP = {0, 0, 0, 0};
+    private final double[] kI = {0, 0, 0, 0};
+    private final double[] kD = {0, 0, 0, 0};
 
     private DcMotorEx[] wheels; // 0 = FL, 1 = FR, 2 = BL, 3 = BR
     IMU imu;
@@ -73,8 +81,6 @@ public class ChassisMotors {
     }
 
     //------- AUTONOMOUS METHODS -------
-
-
     public void turnLeft(double turnSpeed, double turnAngle) {
         stopAllMotors();
         imu.resetYaw();
@@ -150,8 +156,9 @@ public class ChassisMotors {
         return ((getBackRightTicksPerSec()/encoderCPM) * 60);
     }
     public double getWheelRPM(int wheel) {
-        return ((getWheelTicksPerSec(wheel)/encoderCPM) * 60);
+        return ( -1 * (getWheelTicksPerSec(wheel)/encoderCPM) * 60);
     }
+
     public double getWheelTicksPerSec(int wheel) {
         return wheels[wheel].getVelocity();
     }

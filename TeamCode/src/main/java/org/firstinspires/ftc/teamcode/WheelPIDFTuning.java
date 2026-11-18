@@ -8,13 +8,11 @@ import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 
 
 @TeleOp(name = "Tuning", group = "Test")
-public class Tuning extends OpMode {
+public class WheelPIDFTuning extends OpMode {
     ChassisMotors chassis = new ChassisMotors();
-
-    // Goal RPM presets. Defaults assume a ~312 RPM motor. Change for your motors.
-    private static final double PRESET_A = 250;
-    private static final double PRESET_B = 150;
-    private static final double PRESET_X = 75;
+    private static final double GOAL_A = 250;
+    private static final double GOAL_B = 150;
+    private static final double GOAL_X = 75;
 
     private static final String[] WHEEL_NAMES = {"Front Left", "Front Right", "Back Left", "Back Right"};
     private static final String[] WHEEL_SHORT = {"FL", "FR", "BL", "BR"};
@@ -23,11 +21,11 @@ public class Tuning extends OpMode {
 
     // gains[param][wheel]
     private final double[][] gains = {
-            {0.011, 0.036, 0.011, 0.011},          // kS
-            {0.003042, 0.003, 0.003040, 0.003050},      // kV
-            {0.000001, 0.000001, 0.000001, 0.000001},                      // kP
-            {0, 0, 0, 0},                      // kI
-            {0, 0, 0, 0}                       // kD
+            {0.011, 0.036, 0.011, 0.011}, //kS
+            {0.003042, 0.003, 0.003040, 0.003050}, // kV
+            {0.000001, 0.000001, 0.000001, 0.000001}, // kP
+            {0, 0, 0, 0}, // kI
+            {0, 0, 0, 0} // kD
     };
 
     private final PIDFController[] pids = {
@@ -74,11 +72,11 @@ public class Tuning extends OpMode {
 
         //----------goal RPM----------
         if (gamepad1.a && !gamepad1.start) {
-            goalRPM = PRESET_A;
+            goalRPM = GOAL_A;
         } else if (gamepad1.b && !gamepad1.start) {
-            goalRPM = PRESET_B;
+            goalRPM = GOAL_B;
         } else if (gamepad1.x) {
-            goalRPM = PRESET_X;
+            goalRPM = GOAL_X;
         } else if (gamepad1.left_trigger > 0.5) {
             goalRPM = 0;
         }
@@ -91,7 +89,7 @@ public class Tuning extends OpMode {
         }
 
         //----------run the selected wheel----------
-        double rpm = -1 * chassis.getWheelRPM(wheel);
+        double rpm = chassis.getWheelRPM(wheel);
         double power = 0;
 
         if (goalRPM > 0) {
