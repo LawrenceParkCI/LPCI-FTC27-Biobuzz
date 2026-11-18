@@ -81,7 +81,6 @@ public class WheelPIDFTuning extends OpMode {
             goalRPM = 0;
         }
 
-        //clear the PID history when wheel changes
         if (goalRPM != lastGoal || wheel != lastWheel) {
             pids[wheel].reset();
             lastGoal = goalRPM;
