@@ -119,10 +119,7 @@ public class TeleOpMode1 extends OpMode {
             backRightPower /= max;
         }
         //setting speeds
-        chassisMotors.setFrontLeftMotor(frontLeftPower);
-        chassisMotors.setFrontRightMotor(frontRightPower);
-        chassisMotors.setBackRightMotor(backRightPower);
-        chassisMotors.setBackLeftMotor(backLeftPower);
+        chassisMotors.driveVelocity(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
 
         telemetry.addData("Status", "Running");
         telemetry.addData("Drive Mode", reversedDrive ? "REVERSED" : "NORMAL");
