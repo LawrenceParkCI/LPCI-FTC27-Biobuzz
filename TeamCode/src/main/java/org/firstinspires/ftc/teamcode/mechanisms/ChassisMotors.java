@@ -13,7 +13,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class ChassisMotors {
     private DcMotorEx front_right_motor, front_left_motor, back_right_motor, back_left_motor; //Chassis motors
-    double encoderCPM = 28;
+    double encoderCPM = 460.8;
+    public static final double MAX_RPM = 300;
+    private final PIDFController[] wheelPIDs = {
+            new PIDFController(0), new PIDFController(0), new PIDFController(0), new PIDFController(0)
+    };
+    private final double[] kS =  {0.011, 0.036, 0.011, 0.011};
+    private final double[] kV = {0.003042, 0.003, 0.003040, 0.003050};
+    private final double[] kP = {0, 0, 0, 0};
+    private final double[] kI = {0, 0, 0, 0};
+    private final double[] kD = {0, 0, 0, 0};
+
+    private DcMotorEx[] wheels; // 0 = FL, 1 = FR, 2 = BL, 3 = BR
     IMU imu;
 
     public void init(HardwareMap hwMap) {
@@ -27,6 +38,12 @@ public class ChassisMotors {
         front_left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         back_right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         back_left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //------------for my tuning method----------//
+        wheels = new DcMotorEx[]{front_left_motor, front_right_motor, back_left_motor, back_right_motor};
+        for (DcMotorEx m : wheels) {
+            m.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
 
         //--------------IMU-----------------//2
         imu = hwMap.get(IMU.class, "imu");
@@ -59,8 +76,6 @@ public class ChassisMotors {
     }
 
     //------- AUTONOMOUS METHODS -------
-
-
     public void turnLeft(double turnSpeed, double turnAngle) {
         stopAllMotors();
         imu.resetYaw();
@@ -134,5 +149,32 @@ public class ChassisMotors {
     }
     public double getBackRightRPM() {
         return ((getBackRightTicksPerSec()/encoderCPM) * 60);
+    }
+    public double getWheelRPM(int wheel) {
+        return ( -1 * (getWheelTicksPerSec(wheel)/encoderCPM) * 60);
+    }
+
+    public double getWheelTicksPerSec(int wheel) {
+        return wheels[wheel].getVelocity();
+    }
+    public void setWheelPower(int wheel, double power) {
+        wheels[wheel].setPower(power);
+    }
+    public void setWheelRPM(int wheel, double targetRPM) {
+        if (Math.abs(targetRPM) < 1.0) {
+            wheels[wheel].setPower(0);
+            wheelPIDs[wheel].reset();
+            return;
+        }
+        wheelPIDs[wheel].setCoefficients(kP[wheel], kI[wheel], kD[wheel], kV[wheel]);
+        double power = wheelPIDs[wheel].calculate(targetRPM, getWheelRPM(wheel))
+                + kS[wheel] * Math.signum(targetRPM);
+        wheels[wheel].setPower(Math.max(-1.0, Math.min(1.0, power)));
+    }
+    public void driveVelocity(double fl, double fr, double bl, double br) {
+        setWheelRPM(0, fl * MAX_RPM);
+        setWheelRPM(1, fr * MAX_RPM);
+        setWheelRPM(2, bl * MAX_RPM);
+        setWheelRPM(3, br * MAX_RPM);
     }
 }
