@@ -119,7 +119,11 @@ public class TeleOpMode1 extends OpMode {
             backRightPower /= max;
         }
         //setting speeds
-        chassisMotors.driveVelocity(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
+        //chassisMotors.driveVelocity(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
+        chassisMotors.setFrontLeftMotor(frontLeftPower);
+        chassisMotors.setFrontRightMotor(frontRightPower);
+        chassisMotors.setBackRightMotor(backRightPower);
+        chassisMotors.setBackLeftMotor(backLeftPower);
 
         telemetry.addData("Status", "Running");
         telemetry.addData("Drive Mode", reversedDrive ? "REVERSED" : "NORMAL");
@@ -127,5 +131,8 @@ public class TeleOpMode1 extends OpMode {
         telemetry.addData("LY", gamepad1.left_stick_y);
         telemetry.addData("RX", gamepad1.right_stick_x);
         telemetry.addData("RY", gamepad1.right_stick_y);
+        telemetry.addData("nectar rpm:", flywheelMotors.getTopRPM());
+        telemetry.addData("pollen rpm:", flywheelMotors.getBotRPM());
+
     }
 }
