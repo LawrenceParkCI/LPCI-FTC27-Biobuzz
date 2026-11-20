@@ -52,7 +52,7 @@ public class ChassisMotors {
 
         RevHubOrientationOnRobot orient = new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                RevHubOrientationOnRobot.UsbFacingDirection.UP
         );
         imu.initialize(new IMU.Parameters(orient));
     }
@@ -77,18 +77,23 @@ public class ChassisMotors {
         setBackRightMotor(0);
     }
 
+    public void setAllMotors(double backLeftSpeed, double frontLeftSpeed, double backRightSpeed, double frontRightSpeed) {
+        setBackLeftMotor(backLeftSpeed);
+        setFrontLeftMotor(frontLeftSpeed);
+
+        setBackRightMotor(backRightSpeed);
+        setFrontRightMotor(frontRightSpeed);
+    }
+
     //------- AUTONOMOUS METHODS -------
     public void turnLeft(double turnSpeed, double turnAngle) {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees >= -turnAngle + 2) {
+        while (currentDegrees >= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(-turnSpeed);
-            setFrontLeftMotor(-turnSpeed);
+            setAllMotors(-turnSpeed, turnSpeed, turnSpeed, -turnSpeed);
 
-            setBackRightMotor(turnSpeed);
-            setFrontRightMotor(turnSpeed);
         }
 
         stopAllMotors();
@@ -98,13 +103,9 @@ public class ChassisMotors {
         stopAllMotors();
         imu.resetYaw();
         double currentDegrees = 0;
-        while (currentDegrees <= turnAngle + 2) {
+        while (currentDegrees <= turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-            setBackLeftMotor(turnSpeed);
-            setFrontLeftMotor(turnSpeed);
-
-            setBackRightMotor(-turnSpeed);
-            setFrontRightMotor(-turnSpeed);
+            setAllMotors(turnSpeed , -turnSpeed , -turnSpeed, turnSpeed);
         }
 
         stopAllMotors();
