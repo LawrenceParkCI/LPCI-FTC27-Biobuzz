@@ -50,22 +50,19 @@ public class TeleOpMode1 extends OpMode {
 
 
         // ------------- SHOOTERS ----------- //
-        double nectarGoalRPM = 1500;
-        double pollenGoalRPM = 2850;
+        double nectarGoalRPM = 1995;
+        double pollenGoalRPM = 2670;
         double idleGoal = 800;
 
         //pollen motor
         if (gamepad2.a && !gamepad2.start) {
             flywheelMotors.setBotMotorRPM(pollenGoalRPM);
+            flywheelMotors.setTopMotorRPM(nectarGoalRPM);
         } else if (gamepad2.x) {
             flywheelMotors.stopBotMotor();
-        }
-        //nectar motor
-        if (gamepad2.b && !gamepad2.start) {
-            flywheelMotors.setTopMotorRPM(nectarGoalRPM);
-        } else if (gamepad2.y) {
             flywheelMotors.stopTopMotor();
         }
+
         //idling
         if (gamepad2.dpad_left) {
             flywheelMotors.setBothMotorsRPM(idleGoal);
