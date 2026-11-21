@@ -18,11 +18,14 @@ public class AutonomousShootPath extends LinearOpMode {
         motors.init(hardwareMap);
         flyWheel.init(hardwareMap);
         intake.init(hardwareMap);
+        double nectarGoalRPM = 1500;
+        double pollenGoalRPM = 2850;
 
         waitForStart();
 
         if (opModeIsActive()){
-            flyWheel.setBothMotorsRPM(2850);
+            flyWheel.setBotMotorRPM(pollenGoalRPM);
+            flyWheel.setTopMotorRPM(nectarGoalRPM);
             sleep(2000);
             flyWheel.stopMotors();
             motors.turnRight(0.45, 90);
@@ -38,14 +41,16 @@ public class AutonomousShootPath extends LinearOpMode {
             sleep(1000);
             motors.turnRight(0.45, 90);
             sleep(1000);
-            flyWheel.setBothMotorsRPM(2850);
+            flyWheel.setBotMotorRPM(pollenGoalRPM);
+            flyWheel.setTopMotorRPM(nectarGoalRPM);
+
             sleep(2000);
             flyWheel.stopMotors();
-            motors.moveBackward(0.3);
+            motors.moveBackward(0.2);
             sleep(3500);
             motors.turnLeft(0.45, 90);
             sleep(500);
-            motors.moveBackward(0.5);
+            motors.moveBackward(0.2);
             sleep(5000);
             motors.stopAllMotors();
 

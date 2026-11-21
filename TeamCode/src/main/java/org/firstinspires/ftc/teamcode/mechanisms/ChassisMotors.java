@@ -93,7 +93,6 @@ public class ChassisMotors {
         while (currentDegrees >= -turnAngle) {
             currentDegrees = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             setAllMotors(-turnSpeed, turnSpeed, turnSpeed, -turnSpeed);
-
         }
 
         stopAllMotors();
