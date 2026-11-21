@@ -127,6 +127,80 @@ public class ChassisMotors {
         setFrontLeftMotor(-speed);
         setFrontRightMotor(-speed);
     }
+
+    public void moveBackwardDistance(double speed,double inches) {
+        stopAllMotors();
+        back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        double circumference = 3.14 * 3.94;
+        double rotations = -inches/circumference;
+        int encoderTarget = (int)(rotations*getFrontLeftTicksPerSec());
+
+        back_left_motor.setTargetPosition(encoderTarget);
+        back_right_motor.setTargetPosition(encoderTarget);
+        front_right_motor.setTargetPosition(encoderTarget);
+        front_left_motor.setTargetPosition(encoderTarget);
+        setBackRightMotor(-speed);
+        setBackLeftMotor(-speed);
+
+        setFrontRightMotor(-speed);
+        setFrontLeftMotor(-speed);
+
+        back_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        back_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (back_left_motor.isBusy() || back_right_motor.isBusy() ||
+        front_left_motor.isBusy() || front_right_motor.isBusy()) {
+            setBackRightMotor(-speed);
+            setBackLeftMotor(-speed);
+
+            setFrontRightMotor(-speed);
+            setFrontLeftMotor(-speed);
+        }
+        stopAllMotors();
+    }
+
+    public void moveForwardDistance(double speed,double inches) {
+        stopAllMotors();
+        back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        double circumference = 3.14 * 3.94;
+        double rotations = inches/circumference;
+        int encoderTarget = (int)(rotations*getFrontLeftTicksPerSec());
+
+        back_left_motor.setTargetPosition(encoderTarget);
+        back_right_motor.setTargetPosition(encoderTarget);
+        front_right_motor.setTargetPosition(encoderTarget);
+        front_left_motor.setTargetPosition(encoderTarget);
+        setBackRightMotor(speed);
+        setBackLeftMotor(speed);
+
+        setFrontRightMotor(speed);
+        setFrontLeftMotor(speed);
+
+        back_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        back_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (back_left_motor.isBusy() || back_right_motor.isBusy() ||
+                front_left_motor.isBusy() || front_right_motor.isBusy()) {
+            setBackRightMotor(speed);
+            setBackLeftMotor(speed);
+
+            setFrontRightMotor(speed);
+            setFrontLeftMotor(speed);
+        }
+        stopAllMotors();
+    }
     public double getFrontLeftTicksPerSec() {
         return front_left_motor.getVelocity();
     }
