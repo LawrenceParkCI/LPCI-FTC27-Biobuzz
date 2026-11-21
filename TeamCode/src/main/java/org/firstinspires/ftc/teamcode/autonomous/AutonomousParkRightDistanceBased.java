@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
-
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class AutonomousParkRightDistanceBased extends LinearOpMode {
 
     ChassisMotors motors = new ChassisMotors();
