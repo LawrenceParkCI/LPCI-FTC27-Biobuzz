@@ -50,8 +50,8 @@ public class TeleOpMode1 extends OpMode {
 
 
         // ------------- SHOOTERS ----------- //
-        double nectarGoalRPM = 1500;
-        double pollenGoalRPM = 2850;
+        double nectarGoalRPM = 1995;
+        double pollenGoalRPM = 2670;
         double idleGoal = 800;
 
         //pollen motor
