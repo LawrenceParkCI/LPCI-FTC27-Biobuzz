@@ -57,15 +57,12 @@ public class TeleOpMode1 extends OpMode {
         //pollen motor
         if (gamepad2.a && !gamepad2.start) {
             flywheelMotors.setBotMotorRPM(pollenGoalRPM);
+            flywheelMotors.setTopMotorRPM(nectarGoalRPM);
         } else if (gamepad2.x) {
             flywheelMotors.stopBotMotor();
-        }
-        //nectar motor
-        if (gamepad2.b && !gamepad2.start) {
-            flywheelMotors.setTopMotorRPM(nectarGoalRPM);
-        } else if (gamepad2.y) {
             flywheelMotors.stopTopMotor();
         }
+
         //idling
         if (gamepad2.dpad_left) {
             flywheelMotors.setBothMotorsRPM(idleGoal);
