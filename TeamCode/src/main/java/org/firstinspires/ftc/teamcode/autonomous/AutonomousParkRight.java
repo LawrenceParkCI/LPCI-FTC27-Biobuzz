@@ -16,14 +16,14 @@ public class AutonomousParkRight extends LinearOpMode {
 
         if (opModeIsActive()) {
             motors.stopAllMotors();
-            motors.moveBackward(0.2);
-            sleep(3500);
+            motors.moveBackward(0.7);
+            sleep(750);
             motors.stopAllMotors();
-            motors.turnLeft(0.45, 90);
-            sleep(500);
+            motors.turnLeft(0.8, 90);
+            sleep(10);
             motors.stopAllMotors();
-            motors.moveBackward(0.2);
-            sleep(4000);
+            motors.moveBackward(0.45);
+            sleep(2500);
             motors.stopAllMotors();
         }
     }

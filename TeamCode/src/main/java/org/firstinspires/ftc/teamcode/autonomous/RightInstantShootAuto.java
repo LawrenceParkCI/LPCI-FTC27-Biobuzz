@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ChassisMotors;
 import org.firstinspires.ftc.teamcode.mechanisms.FlywheelMotors;
-
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class RightInstantShootAuto extends LinearOpMode {
     FlywheelMotors flyWheel = new FlywheelMotors();
     ChassisMotors motors = new ChassisMotors();
@@ -14,8 +14,8 @@ public class RightInstantShootAuto extends LinearOpMode {
         motors.init(hardwareMap);
         flyWheel.init(hardwareMap);
         waitForStart();
-        double nectarGoalRPM = 1995;
-        double pollenGoalRPM = 2670;
+        double nectarGoalRPM = 3100;
+        double pollenGoalRPM = 2950;
 
         if (opModeIsActive()) {
             sleep(3000);

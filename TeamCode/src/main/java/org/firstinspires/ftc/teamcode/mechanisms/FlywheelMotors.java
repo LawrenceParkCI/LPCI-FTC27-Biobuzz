@@ -9,7 +9,8 @@ public class FlywheelMotors {
     //pollen motor
     private double kV = 0.000152, kS = 0.097, kP = 0.001;
     //nectar motor
-    private double kV1 = 0.000157, kS1 = 0.068, kP1 = 0.000022;
+    private double kV1 = 0.000167, kS1 = 0.000, kP1 = 0.000022;
+    //68
     double encoderCPM = 28;
 
 
