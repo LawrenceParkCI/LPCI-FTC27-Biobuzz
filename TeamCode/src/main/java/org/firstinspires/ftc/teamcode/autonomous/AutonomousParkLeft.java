@@ -16,8 +16,8 @@ public class AutonomousParkLeft extends LinearOpMode {
 
         if (opModeIsActive()) {
             motors.stopAllMotors();
+            sleep(2000);
             motors.moveBackward(0.2);
-            sleep(3500);
             motors.stopAllMotors();
             motors.turnLeft(0.45, 90);
             sleep(500);
