@@ -130,10 +130,10 @@ public class ChassisMotors {
 
     public void moveBackwardDistance(double speed,double inches) {
         stopAllMotors();
-        back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_left_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        back_right_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        front_right_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         double circumference = 3.14 * 3.94;
         double rotations = -inches/circumference;
@@ -149,10 +149,10 @@ public class ChassisMotors {
         setFrontRightMotor(-speed);
         setFrontLeftMotor(-speed);
 
-        back_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        back_left_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        back_right_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        front_left_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        front_right_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         while (back_left_motor.isBusy() || back_right_motor.isBusy() ||
         front_left_motor.isBusy() || front_right_motor.isBusy()) {
@@ -167,10 +167,10 @@ public class ChassisMotors {
 
     public void moveForwardDistance(double speed,double inches) {
         stopAllMotors();
-        back_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_left_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_left_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        back_right_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        front_left_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        front_right_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         double circumference = 3.14 * 3.94;
         double rotations = inches/circumference;
@@ -186,10 +186,10 @@ public class ChassisMotors {
         setFrontRightMotor(speed);
         setFrontLeftMotor(speed);
 
-        back_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_left_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_right_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        back_left_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        back_right_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        front_left_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        front_right_motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         while (back_left_motor.isBusy() || back_right_motor.isBusy() ||
                 front_left_motor.isBusy() || front_right_motor.isBusy()) {
