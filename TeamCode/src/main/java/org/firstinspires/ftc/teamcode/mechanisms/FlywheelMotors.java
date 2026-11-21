@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class FlywheelMotors {
     private DcMotorEx nectar_motor, pollen_motor; //Flywheel motors
     //pollen motor
-    private double kV = 0.000152, kS = 0.097, kP = 0.001;
+    private double kV = 0.000152, kS = 0.097, kP = 0.0001;
     //nectar motor
     private double kV1 = 0.000167, kS1 = 0.000, kP1 = 0.000022;
     //68
