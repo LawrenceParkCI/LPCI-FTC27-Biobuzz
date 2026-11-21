@@ -10,8 +10,8 @@ public class InstantShootAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
         waitForStart();
-        double nectarGoalRPM = 1500;
-        double pollenGoalRPM = 2850;
+        double nectarGoalRPM = 1995;
+        double pollenGoalRPM = 2670;
         flyWheel.init(hardwareMap);
 
         if (opModeIsActive()) {

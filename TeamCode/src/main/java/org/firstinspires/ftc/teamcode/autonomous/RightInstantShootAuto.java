@@ -14,8 +14,8 @@ public class RightInstantShootAuto extends LinearOpMode {
         motors.init(hardwareMap);
         flyWheel.init(hardwareMap);
         waitForStart();
-        double nectarGoalRPM = 1500;
-        double pollenGoalRPM = 2850;
+        double nectarGoalRPM = 1995;
+        double pollenGoalRPM = 2670;
 
         if (opModeIsActive()) {
             sleep(3000);

@@ -18,8 +18,8 @@ public class AutonomousShootPath extends LinearOpMode {
         motors.init(hardwareMap);
         flyWheel.init(hardwareMap);
         intake.init(hardwareMap);
-        double nectarGoalRPM = 1500;
-        double pollenGoalRPM = 2850;
+        double nectarGoalRPM = 1995;
+        double pollenGoalRPM = 2670;
 
         waitForStart();
 
